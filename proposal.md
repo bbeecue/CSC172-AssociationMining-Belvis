@@ -1,5 +1,5 @@
 
-# CSC173 Deep Computer Vision Project Proposal
+# CSC172 Association Rule Mining Project
 **Student:** Febe Gwyn R. Belvis, 2022-0380  
 **Date:** December 12, 2025
 
