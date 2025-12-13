@@ -31,10 +31,11 @@ Music is deeply involved and engrained in our lives, especially in our emotional
 
 **Architectural Sketch**
 1. Data Preprocessing
-<br>-> Remove irrelevant attributes (ID)
+<br>-> Remove irrelevant attributes 
 <br>->Handle missing values
 <br>->Bin hours of listening per day and mental health scores
 <br>->Convert all categorical features into one-hot encoded format and generate itemsets
+
 
 2. Apriori Algorithm (to be adjusted and fine-tuned iteratively to balance the number and quality of generated itemsets)
 
