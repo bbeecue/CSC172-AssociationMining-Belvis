@@ -3,3 +3,4 @@ numpy
 matplotlib
 mlxtend
 scikit-learn
+seaborn
