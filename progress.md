@@ -49,13 +49,14 @@ To be implemented
 | Issue | Status | Resolution |
 |-------|--------|------------|
 | High Sparsity (with frequency per genre) | ✅ Solved | Dropped columns that will only introduce high sparsity (with justification in dataset progress and notebook)|
-| TransitionEncoder doesn't one-hot encode the transitions.csv properly | 🟠 In Progress | TBA|
+| TransitionEncoder doesn't one-hot encode the transitions.csv properly | ✅ Solved | Used the manual python method for opening csv (huhumaoradiay) |
 
 
 ## 4. Next Steps [TO BE EDITED] (Before Final Submission) 
 - [✅] Data Analysis + Preprocessing
 - [✅] Transactional format (from exploration notebeook) convert to csv
-- [] Fix TransitionEncoder problem notebook
+- [✅] Fix TransitionEncoder problem notebook
+- [] Apriori Implememntation
 - [] Rule Filtering
 - [] Evaluation and Analysis
 
