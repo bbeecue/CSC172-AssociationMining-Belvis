@@ -5,11 +5,11 @@
 **Semester:**  AY 2025-2026 Sem 1
 
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org) [![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange)](https://pytorch.org)
+[![Python](https://img.shields.io/badge/Python-3.13+-blue)](https://python.org)
 
 
 ## Abstract
-[150-250 words: Summarize problem (e.g., "Urban waste sorting in Mindanao"), dataset, deep CV method (e.g., YOLOv8 fine-tuned on custom trash images), key results (e.g., 92% mAP), and contributions.][web:25][web:41]
+
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -24,7 +24,7 @@
 
 ## Introduction
 ### Problem Statement
-
+Music is deeply involved and engrained in our lives, especially in our emotional regulation, stress levels, and well-being. However, most studies rely on correlations or predictive modls with respect to music and mental well-being rather than examining co-occuring patterns of listening behaviors, musical preferences, and mental health indicators. Therefore, this project seeks to observe which combinations of music generes, habits, and emotional states commonly occur together and see if such paterns can reveal meaningful associations about how us, individuals, use music to reflect on our mental health.
 
 ### Objectives
 - Transform the MxMH survey records into a transactional-style dataset which will be used for apriori rule mining.
@@ -32,24 +32,20 @@
 - Generate association rules and evaluate their strength using the following metrics: support, cinfidence, lift, conviction, and leverage.
 - Visualize insights from the rules and interpret the associations.
 
-![Problem Demo](images/problem_example.gif) [web:41]
 
 ## Related Work
-- [Paper 1: YOLOv8 for real-time detection [1]]
-- [Paper 2: Transfer learning on custom datasets [2]]
-- [Gap: Your unique approach, e.g., Mindanao-specific waste classes] [web:25]
+- De Filippis, R., & Foysal, A. A. (2025). Associations between Music Listening Habits and Mental Health: A Cross-Sectional Analysis. OALib, 12(04), 1–29. https://doi.org/10.4236/oalib.1113196
+- Dong, X., Kang, X., & Ding, X. (2022). Influence and analysis of music teaching environment monitoring on students’ mental health using data mining technology. Journal of Environmental and Public Health, 2022(1), 1120156. https://doi.org/10.1155/2022/1120156
+
+(GAPS: Most accessible papers only explores either ARM on mental health or ARM on music and not on both)
 
 ## Methodology
 ### Dataset
-- Source: [e.g., Custom 5K images + COCO subset]
-- Split: 70/15/15 train/val/test
-- Preprocessing: Augmentation, resizing to 640x640 [web:41]
+- Source: Kaggle Music X Mental Health Survey
+- Shape: 736 Rows - 33 Columns
+- 
 
-### Architecture
-![Model Diagram](images/architecture.png)
-- Backbone: [e.g., CSPDarknet53]
-- Head: [e.g., YOLO detection layers]
-- Hyperparameters: Table below
+### Apriori Algorithm and Values
 
 | Parameter | Value |
 |-----------|-------|
@@ -58,29 +54,40 @@
 | Epochs | 100 |
 | Optimizer | SGD |
 
-### Training Code Snippet
-train.py excerpt
-model = YOLO('yolov8n.pt')
-model.train(data='dataset.yaml', epochs=100, imgsz=640)
 
+### Implementation Code Snippet
+`frequent_items = apriori(df_onehot, min_support=0.1, use_colnames=True, max_len=5)`
+
+`rules = association_rules(frequent_items, metric="support", min_threshold=0.05)
+support_rules = rules.sort_values('support', ascending=False)`
+
+[display_cols].head(10)
 
 ## Experiments & Results
 ### Metrics
-| Model | mAP@0.5 | Precision | Recall | Inference Time (ms) |
-|-------|---------|-----------|--------|---------------------|
-| Baseline (YOLOv8n) | 85% | 0.87 | 0.82 | 12 |
-| **Ours (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
+| Metric| Rule | Percentage |
+|-------|---------|-----------|
+| Support | 85% | 0.87 | 0.82 | 12 |
+| Confidence (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
+| Lift (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
+| Leverage (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
+| Conviction (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
 
-![Training Curve](images/loss_accuracy.png)
+![Scatter Plot](images/loss_accuracy.png)
 
 ### Demo
 ![Detection Demo](demo/detection.gif)
 [Video: [CSC173_YourLastName_Final.mp4](demo/CSC173_YourLastName_Final.mp4)] [web:41]
 
 ## Discussion
-- Strengths: [e.g., Handles occluded trash well]
-- Limitations: [e.g., Low-light performance]
-- Insights: [e.g., Data augmentation boosted +7% mAP] [web:25]
+- Strengths: Decently tells us about the correlation and co-occurence of some mental health variables (anxiety and depression) and the most common favorite music genre (rock)
+
+- Limitations: Very high dimensionality of dataset after preprocessing and one-hot encoding.
+
+- Insights: 
+    - Pruned itemsets with support below 0.1 or 1%. 
+    - Excluded low power columns/high cardinality features
+    - Binned some numerical features to reduce categories
 
 ## Ethical Considerations
 - Bias: Dataset skewed toward plastic/metal; rural waste underrepresented
@@ -91,9 +98,9 @@ model.train(data='dataset.yaml', epochs=100, imgsz=640)
 [Key achievements and 2-3 future directions, e.g., Deploy to Raspberry Pi for IoT.]
 
 ## Installation
-1. Clone repo: `git clone https://github.com/yourusername/CSC173-DeepCV-YourLastName`
+1. Clone repo: `git clone https://github.com/bbeecue/CSC172-AssociationMining-Belvis`
 2. Install deps: `pip install -r requirements.txt`
-3. Download weights: See `models/` or run `download_weights.sh` [web:22][web:25]
+3. Run notebook (1) `exploration_preprocessing.ipynb` then (2) `apriori_implementation.ipynb`
 
 **requirements.txt:**
 pandas
@@ -104,8 +111,9 @@ scikit-learn
 seaborn
 
 ## References
-[1] Jocher, G., et al. "YOLOv8," Ultralytics, 2023.  
-[2] Deng, J., et al. "ImageNet: A large-scale hierarchical image database," CVPR, 2009. [web:25]
+[1] Dong, X., Kang, X., & Ding, X. (2022). Influence and analysis of music teaching environment monitoring on students’ mental health using data mining technology. Journal of Environmental and Public Health, 2022(1), 1120156. https://doi.org/10.1155/2022/1120156
+
+[2] https://statisticsbyjim.com/graphs/pareto-charts/
 
 ## GitHub Pages
 View this project site: [https://jjmmontemayor.github.io/CSC173-DeepCV-Montemayor/](https://jjmmontemayor.github.io/CSC173-DeepCV-Montemayor/) [web:32]
