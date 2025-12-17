@@ -83,8 +83,7 @@ support_rules = rules.sort_values('support', ascending=False)`
 ![Scatter Plot](images/scatterplot_support.png)
 
 ### Demo
-![Detection Demo](demo/detection.gif)
-[Video: [CSC173_YourLastName_Final.mp4](demo/CSC173_YourLastName_Final.mp4)] [web:41]
+[Video: [CSC173_Belvis_Final.mp4](demo/CSC173_Belvis_Final.mp4)] [web:41]
 
 ## Discussion
 - Strengths: Decently tells us about the correlation and co-occurence of some mental health variables (anxiety and depression) and the most common favorite music genre (rock)
@@ -127,4 +126,4 @@ seaborn
 [2] https://statisticsbyjim.com/graphs/pareto-charts/
 
 ## GitHub Pages
-View this project site: [https://jjmmontemayor.github.io/CSC173-DeepCV-Montemayor/](https://jjmmontemayor.github.io/CSC173-DeepCV-Montemayor/) [web:32]
+View this project site: [https://bbeecue.github.io/CSC172-AssociationMining-Belvis/](https://bbeecue.github.io/CSC172-AssociationMining-Belvis/) [web:32]
