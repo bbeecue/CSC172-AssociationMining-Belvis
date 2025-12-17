@@ -38,8 +38,8 @@ Analysis & Preprocessing
 The `Frequency [genre]` columns were dropped as well due to very high dimensionality. This is just according to my judgement to satisfy the requirements of Apriori transactional encoding, cleaner itemsets, and mitigate the risk of multicollinearity.
 
 **Sample data preview:**
-![Dataset Sample 1](./dataset_preview.png)
-![Dataset Sample 2](./dataset_preview2.png)
+![Dataset Sample 1](images/dataset_preview.png)
+![Dataset Sample 2](images/dataset_preview2.png)
 
 
 

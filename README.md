@@ -43,16 +43,23 @@ Music is deeply involved and engrained in our lives, especially in our emotional
 ### Dataset
 - Source: Kaggle Music X Mental Health Survey
 - Shape: 736 Rows - 33 Columns
-- 
+- Preprocessing:
+    - Excluded columns/features that introduces high cardinality
+    - Filled missing values in `Music effects` with its mode
+    - Binned `Hours per day`
+    - Reduce `Fave genre` to 12 + `Other`
 
 ### Apriori Algorithm and Values
 
 | Parameter | Value |
 |-----------|-------|
-| Batch Size | 16 |
-| Learning Rate | 0.01 |
-| Epochs | 100 |
-| Optimizer | SGD |
+| `min_support` (for frequent items) | 0.1 |
+| Support (`min_threshold`) | 0.05 |
+| Confidence (`min_threshold`) | 0.5 |
+| Lift (`min_threshold`) | 1.2 |
+| Leverage (`min_threshold`) | 0.02 |
+| Conviction (`min_threshold`) | 1.2 |
+
 
 
 ### Implementation Code Snippet
@@ -61,19 +68,19 @@ Music is deeply involved and engrained in our lives, especially in our emotional
 `rules = association_rules(frequent_items, metric="support", min_threshold=0.05)
 support_rules = rules.sort_values('support', ascending=False)`
 
-[display_cols].head(10)
+`[display_cols].head(10)`
 
 ## Experiments & Results
 ### Metrics
-| Metric| Rule | Percentage |
-|-------|---------|-----------|
-| Support | 85% | 0.87 | 0.82 | 12 |
-| Confidence (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
-| Lift (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
-| Leverage (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
-| Conviction (Fine-tuned)** | **92%** | **0.94** | **0.89** | **15** |
+| Metric | Top Rule | Value | Total # of Rules |
+|-------|---------|--------|--------|
+| Support | {Anxiety_Present} $\leftrightarrow$ {Improve} | 0.593750 (59%) | 230 |
+| Confidence | {Rock, Improve, Depression_Present} $\rightarrow$ {Anxiety_Present} | 0.965909 (97%) | 112 |
+| Lift | {Anxiety_Absent, Improve} $\leftrightarrow$ {Depression_Absent} | 2.014898 | 38 |
+| Leverage | {Depression_Absent} $\leftrightarrow$ {Anxiety_Absent} | 0.091228 | 62 |
+| Conviction | {Rock, Improve, Depression_Present} $\rightarrow$ {Anxiety_Present} | 7.054348 | 50 |
 
-![Scatter Plot](images/loss_accuracy.png)
+![Scatter Plot](images/scatterplot_support.png)
 
 ### Demo
 ![Detection Demo](demo/detection.gif)
@@ -90,12 +97,16 @@ support_rules = rules.sort_values('support', ascending=False)`
     - Binned some numerical features to reduce categories
 
 ## Ethical Considerations
-- Bias: Dataset skewed toward plastic/metal; rural waste underrepresented
-- Privacy: No faces in training data
-- Misuse: Potential for surveillance if repurposed [web:41]
+- Privacy: Mental health variables (e.g., anxiety, depression, insomnia, OCD) are sensitive personal data, even if it is self-reported and anonymized. There's a reidentification risk when the mental health attributes are combined with values such as age, streaming platform, and music preferences especially with roles like composer and/or instrumentalist.
+- Contextual Inegrity: The respondents may not have explicitly agreed to take the survey and allow their responses to be used in contexts beyond data analysis or statistics.
+- Finally, because we're dealing with associations between music genres and mental health variables, there's also a risk of stigmatization. Meaning, due to co-occurences and evident associations, readers may label certain genres as unhealthy or depressing even though the data reported in this context is not diagnostic.
 
 ## Conclusion
-[Key achievements and 2-3 future directions, e.g., Deploy to Raspberry Pi for IoT.]
+Apriori Association Rule Mining has been successfully applied to the Music x Mental Health Survey Dataset, uncovering patterns in listening habits and self-reported mental health. The preprocessing phase (which includes high-cardinality pruning and binning of values) mitigated data sparsity, enabling us to extract 62 frequent itemsets (support > 1%). A key finding in this project is that the dominant profile in the dataset is the 'Anxious Improver', with nearly 60% of respondents reporting both Anxiety and mental health improvement driven by music.
+
+To expand upon the findings of this project,  future works may focus on transitioning from descriptive analysis to real-time application. Additionally, this project suggests to integrate the rules with audio feature analysis to initiate the creation of hybrid music recommendation system that is capable of suggesting tracks 'scientifically' proven to co-occur with positive mental well-being for distinct user profiles.
+
+
 
 ## Installation
 1. Clone repo: `git clone https://github.com/bbeecue/CSC172-AssociationMining-Belvis`
